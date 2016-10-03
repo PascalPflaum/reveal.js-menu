@@ -28,7 +28,8 @@ var RevealMenu = window.RevealMenu || (function(){
 			var markers = options.markers || false;
 			var custom = options.custom;
 			var showAlways = options.showAlways || false;
-			var catchMainAreaClick = options.catchMainAreaClick || true;
+			var catchMainAreaClick = options.catchMainAreaClick;
+			if (typeof catchMainAreaClick === "undefined") catchMainAreaClick = true;
 			var themes = options.themes;
 			if (typeof themes === "undefined") {
 				themes = [
@@ -306,7 +307,8 @@ var RevealMenu = window.RevealMenu || (function(){
 			}
 
 			function catchClickOnMainArea() {
-				if (!catchMainAreaClick) {
+				debugger;
+				if (catchMainAreaClick) {
 					$('.slide-menu-overlay').addClass('active');
 				}
 			}
