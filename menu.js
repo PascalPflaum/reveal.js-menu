@@ -352,7 +352,11 @@ var RevealMenu = window.RevealMenu || (function(){
 
 			if (custom) {
 				custom.forEach(function(element, index, array) {
-					$('<li data-panel="Custom' + index + '" data-button="' + (buttons++) + '" class="toolbar-panel-button"><span class="slide-menu-toolbar-label">' + element.title + '</span><br/>' + element.icon + '</i></li>')
+					$('<li data-panel="Custom' + index + '" data-button="' + (buttons++) + '" class="toolbar-panel-button">' +
+						(element.link ? '<a href="' + element.link + '">' : '') +
+						'<span class="slide-menu-toolbar-label">' + element.title + '</span><br/>' + element.icon + '</i>' +
+						(element.link ? '</a>' : '') +
+						'</li>')
 						.appendTo(toolbar)
 						.click(openPanel);
 				})
