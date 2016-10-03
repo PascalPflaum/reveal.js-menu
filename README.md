@@ -211,7 +211,11 @@ Reveal.initialize({
 		// ...
 
 		custom: [
+		    //display the content of src in the menu panel
 			{ title: 'Links', icon: '<i class="fa fa-external-link">', src: 'links.html' },
+			//go to the location like a normal link
+			{ title: 'Links', icon: '<i class="fa fa-external-link">', link: 'links.html' },
+			//display the provided content in the menu panel
 			{ title: 'About', icon: '<i class="fa fa-info">', content: '<p>This slidedeck is created with reveal.js</p>' }
 		]
 	}

@@ -27,6 +27,8 @@ var RevealMenu = window.RevealMenu || (function(){
 			var hideMissingTitles = options.hideMissingTitles || false;
 			var markers = options.markers || false;
 			var custom = options.custom;
+			var showAlways = options.showAlways || false;
+			var catchMainAreaClick = options.catchMainAreaClick || true;
 			var themes = options.themes;
 			if (typeof themes === "undefined") {
 				themes = [
@@ -274,7 +276,7 @@ var RevealMenu = window.RevealMenu || (function(){
 				    $('body').addClass('slide-menu-active');
 				    $('.reveal').addClass('has-' + options.effect + '-' + side);
 				    $('.slide-menu').addClass('active');
-				    $('.slide-menu-overlay').addClass('active');
+					catchClickOnMainArea();
 
 				    // identify active theme
 				    $('div[data-panel="Themes"] li').removeClass('active');
@@ -292,12 +294,25 @@ var RevealMenu = window.RevealMenu || (function(){
 			}
 
 			function closeMenu(event) {
+				if (showAlways) {
+					return;
+				}
 				if (event) event.preventDefault();
 			    $('body').removeClass('slide-menu-active');
 			    $('.reveal').removeClass('has-' + options.effect + '-' + side);
 			    $('.slide-menu').removeClass('active');
-			    $('.slide-menu-overlay').removeClass('active');
+				allowClickOnMainArea();
 			    $('.slide-menu-panel li.selected').removeClass('selected');
+			}
+
+			function catchClickOnMainArea() {
+				if (!catchMainAreaClick) {
+					$('.slide-menu-overlay').addClass('active');
+				}
+			}
+
+			function allowClickOnMainArea() {
+				$('.slide-menu-overlay').removeClass('active');
 			}
 
 			function toggleMenu(event) {
@@ -352,13 +367,15 @@ var RevealMenu = window.RevealMenu || (function(){
 
 			if (custom) {
 				custom.forEach(function(element, index, array) {
-					$('<li data-panel="Custom' + index + '" data-button="' + (buttons++) + '" class="toolbar-panel-button">' +
+					var liElement = $('<li data-panel="Custom' + index + '" data-button="' + (buttons++) + '" class="toolbar-panel-button">' +
 						(element.link ? '<a href="' + element.link + '">' : '') +
 						'<span class="slide-menu-toolbar-label">' + element.title + '</span><br/>' + element.icon + '</i>' +
 						(element.link ? '</a>' : '') +
 						'</li>')
-						.appendTo(toolbar)
-						.click(openPanel);
+						.appendTo(toolbar);
+					if (element.src || element.content) {
+						liElement.click(openPanel);
+					}
 				})
 			}
 
@@ -372,9 +389,12 @@ var RevealMenu = window.RevealMenu || (function(){
 					.appendTo(toolbar)
 					.click(openPanel);
 			}
-			$('<li id="close"><span class="slide-menu-toolbar-label">Close</span><br/><i class="fa fa-times"></i></li>')
-				.appendTo(toolbar)
-				.click(closeMenu);
+
+			if (!showAlways) {
+				$('<li id="close"><span class="slide-menu-toolbar-label">Close</span><br/><i class="fa fa-times"></i></li>')
+					.appendTo(toolbar)
+					.click(closeMenu);
+			}
 
 			var panels = $('.slide-menu');
 
@@ -660,6 +680,10 @@ var RevealMenu = window.RevealMenu || (function(){
 			}
 
 			dispatchEvent('menu-ready');
+		}
+
+		if (showAlways) {
+			openMenu();
 		}
 	})
 	})
