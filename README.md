@@ -101,6 +101,13 @@ Reveal.initialize({
 		// providing an array of objects with 'title', 'icon'
 		// properties, and either a 'src' or 'content' property.
 		custom: false,
+		
+		// Show always the menu
+		showAlways: false,
+		
+		// Add a gray overlay to the main area that closes the menu on click
+		// set to 'false' to disable
+		catchMainAreaClick: true,
 
 		// Specifies the themes that will be available in the themes
 		// menu panel. Set to 'false' to hide themes panel.
