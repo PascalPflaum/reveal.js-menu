@@ -307,7 +307,6 @@ var RevealMenu = window.RevealMenu || (function(){
 			}
 
 			function catchClickOnMainArea() {
-				debugger;
 				if (catchMainAreaClick) {
 					$('.slide-menu-overlay').addClass('active');
 				}
