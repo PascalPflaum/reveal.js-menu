@@ -511,6 +511,25 @@ var RevealMenu = window.RevealMenu || (function(){
 				});
 			}
 
+			function createNavigation() {
+				var nav = $('<div data-panel="Navigation" class="navigation-menu-panel"><div>');
+				nav.appendTo(panels);
+				$('<a href="#">&lt;</a>').appendTo(nav).click(navigationPrev);
+				$('div.slide-number').removeClass('slide-number').appendTo(nav);
+				$('<a href="#">&gt;</a>').appendTo(nav).click(navigationNext);
+
+			}
+
+			function navigationPrev(event) {
+				if (event) event.preventDefault();
+				Reveal.navigatePrev();
+			}
+
+			function navigationNext(event) {
+				if (event) event.preventDefault();
+				Reveal.navigateNext();
+			}
+
 			function createSlideMenu() {
 				if ( !document.querySelector('section[data-markdown]:not([data-markdown-parsed])') ) {
 					$('<div data-panel="Slides" class="slide-menu-panel"><ul class="slide-menu-items"></ul></div>')
@@ -544,6 +563,10 @@ var RevealMenu = window.RevealMenu || (function(){
 				// wait for markdown to be loaded and parsed
 					setTimeout( createSlideMenu, 100 );
 				}
+			}
+
+			if (options.navigation) {
+				createNavigation();
 			}
 
 			createSlideMenu();

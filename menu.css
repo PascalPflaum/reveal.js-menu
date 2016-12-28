@@ -78,6 +78,31 @@
 	opacity: 0.4;
 }
 
+.reveal .navigation-menu-panel {
+	font-size: 1.6rem;
+	font-weight: bold;
+	color: #eee;
+	text-align: center;
+	padding-top: 16px;
+	padding-bottom: 16px;
+	border-bottom: solid 2px #666;
+
+}
+
+.reveal .navigation-menu-panel *{
+	margin-left: 6px;
+	margin-right: 6px;
+}
+
+.reveal .navigation-menu-panel a {
+	color: #eee;
+	font-style: normal;
+}
+
+.reveal .navigation-menu-panel div {
+	display: inline !important;
+}
+
 .reveal .slide-menu--left {
   left: 0;
   -webkit-transform: translateX(-300px);
